@@ -13,9 +13,42 @@ cantFail = 0
 guessed_letters = []
 
 print("¡Bienvenido al juego de adivinanzas!")
-print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
+print("""Dificultades disponibles(elegir 0/1/2): 
+         0.Facil
+         1.Intermedio
+         2.Dificil""")
+option=int(input("Opción: "))
+while option>2 or option<0:
+    option=int(input("""- ERROR: valor ingresado no valido.
+Ingrese nuevamente: """))
 
-word_displayed = "_" * len(secret_word)
+# Estructura para saber que dificultad de eligió
+match option:
+    case 0:
+        print("--- Dificultad facil elegida. ¡¡Pasalo Bien!! ---")
+        letters = []
+        guessed_letters=["a","e","i","o","u"]
+        for letter in secret_word:
+            if letter in guessed_letters:
+                letters.append(letter)
+            else:
+                letters.append("_")
+        word_displayed = "".join(letters)
+    case 1:
+        print("--- Dificultad intermedia elegida. ¡¡Buena Suerte!! ---")
+        letters = []
+        for letter in secret_word:
+            if letter==secret_word[0] or letter==secret_word[len(secret_word)-1]:
+                guessed_letters.append(letter)
+                letters.append(letter)
+            else:
+                letters.append("_")
+        word_displayed = "".join(letters) 
+    case 2:
+        print("--- Dificultad dificil elegida. ¡¡Suerte, la necesitaras!! ---")
+        word_displayed = "_" * len(secret_word)
+
+print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
 # Mostrarla palabra parcialmente adivinada
 print(f"Palabra: {word_displayed}")
 
